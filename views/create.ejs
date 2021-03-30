@@ -1,0 +1,27 @@
+<% layout('layout') %>
+<a href="/">Kembali ke homepage</a>
+<h1>Buat post baru</h1>
+<form id="form-create">
+    <div class="mb-3">
+        <%- include('form', {label: "Slug", name: "slug", type: "text", tooltip: "Slug should be unique, contains only alphanumerics and delimited by - without any space, e.g. `my-first-post` or `a-p03try`.", required: true}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Judul Post", name: "title", type: "text", required: true}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Nama Penulis", name: "author", type: "text", required: true}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Konten", name: "content", type: "textarea", required: true}) %>
+    </div>
+    <button type="submit" class="btn btn-primary">Buat Post</button>
+</form>
+
+
+<script src="/form.js"></script>
+<script>
+    let form = $("#form-create")[0];
+    setFormProcess(form, "/posts/create", "POST", function(){
+        window.location.replace(`/post/${$("#slug").val()}`);
+    });
+</script>

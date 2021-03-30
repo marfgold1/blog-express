@@ -1,0 +1,19 @@
+<% layout('layout') %>
+<h1>Blog Amar :D</h1>
+<% if (posts.length == 0) { %>
+    <p>Belum ada artikel yang bisa ditampilkan :(</p>
+<% } else { %>
+    <ul>
+    <% posts.forEach(el => { %>
+        <li>
+            <div>
+                <h3><%= el.title %></h3>
+                <p>Oleh: <%= el.author %>. <small>Dipublikasi tanggal: <%= el.createdAt.toLocaleDateString() %> (diubah pada <%= el.updatedAt.toLocaleDateString() %>)</small></p>
+                <p><%= el.content.substring(0, 240)+"..." %></p>
+                <a href="/post/<%= el.slug %>">Baca Selengkapnya</a>
+            </div>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+<a href="/posts/create">Buat Postingan Baru</a>

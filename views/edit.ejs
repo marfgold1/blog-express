@@ -1,0 +1,26 @@
+<% layout('layout') %>
+<a href="/post/<%= post.slug %>">Kembali ke postingan</a>
+<h1>Ubah postingan</h1>
+<form id="form-edit">
+    <div class="mb-3">
+        <%- include('form', {label: "Slug", name: "slug", type: "text", readonly: true, required: true, value: post.slug}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Judul Post", name: "title", type: "text", required: true, value: post.title}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Nama Penulis", name: "author", type: "text", required: true, value: post.author}) %>
+    </div>
+    <div class="mb-3">
+        <%- include('form', {label: "Konten", name: "content", type: "textarea", required: true, value: post.content}) %>
+    </div>
+    <button type="submit" class="btn btn-primary">Ubah Post</button>
+</form>
+
+<script src="/form.js"></script>
+<script>
+    let form = $("#form-edit")[0];
+    setFormProcess(form, "/post/<%= post.slug %>/edit", "PUT", function(){
+        window.location.replace("/post/<%= post.slug %>");
+    });
+</script>

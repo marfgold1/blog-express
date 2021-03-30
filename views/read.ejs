@@ -1,0 +1,42 @@
+<% layout('layout') %>
+<a href="/">Kembali ke halaman utama</a>
+<h1><%= post.title %></h1>
+<p>Oleh: <%= post.author %>. <small>Dipublikasi tanggal: <%= post.createdAt.toLocaleDateString() %> (diubah pada <%= post.updatedAt.toLocaleDateString() %>)</small></p>
+<p style="white-space: break-spaces;"><%= post.content %></p>
+<a class="btn btn-primary" href="/post/<%= post.slug %>/edit">Ubah Post</a>
+<a class="btn btn-warning" data-toggle="modal" data-target="#modal-delete">Hapus Post</a>
+
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Hapus Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah kamu yakin ingin menghapus post ini?
+            </div>
+            <div class="modal-footer">
+                <form id="form-delete">
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let form = $("#form-delete")[0];
+    form.addEventListener("submit", function(ev){
+        ev.preventDefault();
+        fetch("/post/<%= post.slug %>/delete", {
+            method: "delete"
+        }).then(res => {
+            if (res.status == 204)
+                window.location.replace("/");
+        });
+    })
+</script>

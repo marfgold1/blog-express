@@ -1,0 +1,15 @@
+<fieldset id="<%= name %>-field">
+    <label for="<%= name %>"><%= label %></label>
+    <% if (type == 'textarea') { %>
+        <textarea class="field form-control<%= typeof readonly !== 'undefined'?'-plaintext':'' %>" name="<%= name %>" id="<%= name %>" <%= typeof readonly !== 'undefined'?'readonly':'' %> type="<%= type %>" name="<%= name %>" id="<%= name %>" <%= typeof required !== 'undefined'?'required':'' %> rows="<%= (typeof rows !== 'undefined'?rows:5) %>"><%= typeof value !== 'undefined' ? value:'' %></textarea>
+    <% } else { %>
+        <input class="field form-control<%= typeof readonly !== 'undefined'?'-plaintext':'' %>" type="<%= type %>" name="<%= name %>" id="<%= name %>" value="<%= typeof value !== 'undefined' ? value:'' %>" <%= typeof readonly !== 'undefined'?'readonly':'' %> <%= typeof required !== 'undefined'?'required':'' %>/>
+    <% } %> 
+    <% if (typeof tooltip !== 'undefined') { %>
+    <small id="slugHelp" class="form-text text-muted">
+        <%= tooltip %>
+    </small>
+    <% } %>
+    <div id="error" hidden class="invalid-feedback">
+    </div>
+</fieldset>
